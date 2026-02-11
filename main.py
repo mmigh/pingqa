@@ -1822,11 +1822,11 @@ def main():
 
                 if config_choice.lower() == "q":
                     globals()["check_exec_enable"] = "1"
-                    globals()["lua_script_template"] = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/mmigh/ROKID-OPENSOURCE/main/haha.lua"))()'
+                    globals()["lua_script_template"] = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/mmigh/pingqa/main/haha.lua"))()'
                     print("\033[1;32m[ Shouko.dev ] - Default set: Executor + Shouko Check\033[0m")
                 elif config_choice == "1":
                     globals()["check_exec_enable"] = "1"
-                    globals()["lua_script_template"] = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/mmigh/ROKID-OPENSOURCE/main/haha.lua"))()'
+                    globals()["lua_script_template"] = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/mmigh/pingqa/main/haha.lua"))()'
                     print("\033[1;32m[ Shouko.dev ] - Set to Executor + Shouko Check\033[0m")
                 elif config_choice == "2":
                     globals()["check_exec_enable"] = "0"
@@ -1835,7 +1835,7 @@ def main():
                 else:
                     print("\033[1;31m[ Shouko.dev ] - Invalid choice. Keeping default.\033[0m")
                     globals()["check_exec_enable"] = "1"
-                    globals()["lua_script_template"] = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/mmigh/ROKID-OPENSOURCE/main/haha.lua"))()'
+                    globals()["lua_script_template"] = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/mmigh/pingqa/main/haha.lua"))()'
 
                 config_file = os.path.join("Shouko.dev", "checkui.lua")
                 if globals()["lua_script_template"]:
@@ -1931,6 +1931,7 @@ if __name__ == "__main__":
         print(f"\033[1;31m[ Shouko.dev ] - Error during initialization: {e}\033[0m")
         Utilities.log_error(f"Initialization error: {e}")
         raise
+
 
 
 
