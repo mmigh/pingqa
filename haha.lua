@@ -4,7 +4,7 @@ local CoreGui = game:GetService("CoreGui")
 repeat task.wait() until Players.LocalPlayer
 local player = Players.LocalPlayer
 local uid = tostring(player.UserId)
-local pingUrl = "https://check-host-two.vercel.app/ping?uid=" .. uid .. "&source=executor"
+local pingUrl = "https://check-host-one.vercel.app/ping?uid=" .. uid .. "&source=executor"
 
 print("[Checkonl] Start ping for UID:", uid)
 
