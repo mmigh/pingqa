@@ -762,8 +762,7 @@ class RobloxManager:
 
             # 1️⃣ Launch Roblox safely
             subprocess.run(
-                'su -c "monkey -p com.roblox.client -c android.intent.category.LAUNCHER 1"',
-                shell=True,
+                ["su", "-c", "monkey -p com.roblox.client -c android.intent.category.LAUNCHER 1"],
                 stdout=subprocess.DEVNULL, 
                 stderr=subprocess.DEVNULL
             )
@@ -777,8 +776,7 @@ class RobloxManager:
             
             # 2️⃣ Join server link
             subprocess.run(
-                f'su -c "am start -a android.intent.action.VIEW -d \\"{server_link}\\""',
-                shell=True,
+                ["su", "-c", "monkey -p com.roblox.client -c android.intent.category.LAUNCHER 1"],
                 stdout=subprocess.DEVNULL, 
                 stderr=subprocess.DEVNULL
             )
@@ -1935,5 +1933,6 @@ if __name__ == "__main__":
         print(f"\033[1;31m[ Shouko.dev ] - Error during initialization: {e}\033[0m")
         Utilities.log_error(f"Initialization error: {e}")
         raise
+
 
 
