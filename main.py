@@ -760,25 +760,27 @@ class RobloxManager:
                 globals()["package_statuses"][package_name]["Status"] = f"\033[1;36mOpening Roblox for {package_name}...\033[0m"
                 UIManager.update_status_table()
 
+            # 1️⃣ Launch Roblox safely
             subprocess.run([
-                'am', 'start',
-                '-a', 'android.intent.action.MAIN',
-                '-n', f'{package_name}/com.roblox.client.startup.ActivitySplash'
+                "su",
+                "-c",
+                "monkey -p com.roblox.client -c android.intent.category.LAUNCHER 1"
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
+            
             time.sleep(10)
-
+            
             with status_lock:
-                globals()["package_statuses"][package_name]["Status"] = f"\033[1;36mJoining Roblox for {package_name}...\033[0m"
+                globals()["package_statuses"][package_name]["Status"] = \
+                    f"\033[1;36mJoining Roblox for {package_name}...\033[0m"
                 UIManager.update_status_table()
-
+            
+            # 2️⃣ Join server link
             subprocess.run([
-                'am', 'start',
-                '-a', 'android.intent.action.VIEW',
-                '-n', f'{package_name}/com.roblox.client.ActivityProtocolLaunch',
-                '-d', server_link
+                "su",
+                "-c",
+                f'am start -a android.intent.action.VIEW -d "{server_link}"'
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
+            
             time.sleep(20)
             with status_lock:
                 globals()["package_statuses"][package_name]["Status"] = "\033[1;32mJoined Roblox\033[0m"
@@ -855,7 +857,7 @@ class RobloxManager:
                 cmd_splash = [
                     'am', 'start',
                     '-a', 'android.intent.action.MAIN',
-                    '-n', f'{package_name}/com.roblox.client.startup.ActivitySplash'
+                    "monkey -p com.roblox.client -c android.intent.category.LAUNCHER 1"
                 ]
                 result_splash = subprocess.run(cmd_splash, capture_output=True, text=True)
                 if result_splash.returncode != 0:
@@ -1931,25 +1933,3 @@ if __name__ == "__main__":
         print(f"\033[1;31m[ Shouko.dev ] - Error during initialization: {e}\033[0m")
         Utilities.log_error(f"Initialization error: {e}")
         raise
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
