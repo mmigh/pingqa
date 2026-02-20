@@ -761,12 +761,12 @@ class RobloxManager:
                 UIManager.update_status_table()
 
             # 1️⃣ Launch Roblox safely
-            subprocess.run([
+            subprocess.run(
                 'su -c "monkey -p com.roblox.client -c android.intent.category.LAUNCHER 1"',
                 shell=True,
                 stdout=subprocess.DEVNULL, 
                 stderr=subprocess.DEVNULL
-            ])
+            )
             
             time.sleep(10)
             
@@ -776,12 +776,12 @@ class RobloxManager:
                 UIManager.update_status_table()
             
             # 2️⃣ Join server link
-            subprocess.run([
+            subprocess.run(
                 f'su -c "am start -a android.intent.action.VIEW -d \\"{server_link}\\""',
                 shell=True,
                 stdout=subprocess.DEVNULL, 
                 stderr=subprocess.DEVNULL
-            ])
+            )
             
             time.sleep(20)
             with status_lock:
@@ -1935,4 +1935,5 @@ if __name__ == "__main__":
         print(f"\033[1;31m[ Shouko.dev ] - Error during initialization: {e}\033[0m")
         Utilities.log_error(f"Initialization error: {e}")
         raise
+
 
