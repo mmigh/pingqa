@@ -877,7 +877,7 @@ class RobloxManager:
             print("\033[1;32m[ Shouko.dev ] - Successfully launched all packages.\033[0m")
 
         print("\033[1;33m[ Shouko.dev ] - Waiting for all tabs to load (1 minute)...\033[0m")
-        time.sleep(60)
+        time.sleep(5)
 
         debug_mode = input("\033[1;93m[ Shouko.dev ] - Keep Roblox tabs open for debugging? (y/n): \033[0m").strip().lower()
         if debug_mode != 'y':
@@ -1931,4 +1931,5 @@ if __name__ == "__main__":
         print(f"\033[1;31m[ Shouko.dev ] - Error during initialization: {e}\033[0m")
         Utilities.log_error(f"Initialization error: {e}")
         raise
+
 
