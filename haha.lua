@@ -10,7 +10,6 @@ local uid = tostring(player.UserId)
 local username = player.Name
 local placeId = tostring(game.PlaceId)
 
--- Lấy tên Game thực tế (nếu lỗi sẽ lấy mặc định)
 local gameName = "Unknown Game"
 pcall(function()
     local productInfo = MarketplaceService:GetProductInfo(game.PlaceId)
@@ -19,25 +18,27 @@ pcall(function()
     end
 end)
 
--- Mã hóa URL an toàn để tránh lỗi chữ cái tiếng Việt hoặc ký tự đặc biệt
 local baseUrl = "https://check-host-one.vercel.app/ping"
-local pingUrl = string.format(
-    "%s?uid=%s&username=%s&place_id=%s&game_name=%s&source=executor",
-    baseUrl,
-    HttpService:UrlEncode(uid),
-    HttpService:UrlEncode(username),
-    HttpService:UrlEncode(placeId),
-    HttpService:UrlEncode(gameName)
-)
 
-print("[Checkonl] Start ping for UID:", uid, "| User:", username)
+local function sendPing(isHop)
+    isHop = isHop or false
+    
+    local pingUrl = string.format(
+        "%s?uid=%s&username=%s&place_id=%s&game_name=%s&source=executor&is_hop=%s",
+        baseUrl,
+        HttpService:UrlEncode(uid),
+        HttpService:UrlEncode(username),
+        HttpService:UrlEncode(placeId),
+        HttpService:UrlEncode(gameName),
+        tostring(isHop)
+    )
 
-local function sendPing()
     local ok, res = pcall(function()
         return game:HttpGet(pingUrl)
     end)
+    
     if ok then
-        print("[Checkonl] ping ok")
+        print("[Checkonl] ping ok (isHop:", isHop, ")")
     else
         warn("[Checkonl] ping failed:", res)
     end
@@ -56,22 +57,22 @@ local function is_disconnected()
     return false
 end
 
--- Bắt sự kiện Teleport/Hop Server để ping giữ kết nối
 player.OnTeleport:Connect(function(teleportState)
     if teleportState == Enum.TeleportState.InProgress or teleportState == Enum.TeleportState.Started then
-        print("[Checkonl] Teleporting/Hopping... Sending last-minute ping!")
-        sendPing()
+        print("[Checkonl] Hopping Server detected! Sending ping with isHop=true...")
+        sendPing(true)
     end
 end)
 
--- Vòng lặp ping chính
+print("[Checkonl] Start ping loop for UID:", uid)
+
 while true do
     if not player or not player.Parent or is_disconnected() then
         warn("[Checkonl] Player disconnected -> stop ping")
         break
     end
 
-    sendPing()
+    sendPing(false)
     task.wait(30)
 end
 
