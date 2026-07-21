@@ -73,7 +73,7 @@ while true do
     end
 
     sendPing(false)
-    task.wait(30)
+    task.wait(60)
 end
 
 print("[Checkonl] Stopped ping loop")
