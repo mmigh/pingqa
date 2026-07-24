@@ -18,7 +18,7 @@ pcall(function()
     end
 end)
 
-local baseUrl = "https://check-host-one.vercel.app/ping"
+local baseUrl = "http://78.154.103.36:9302/ping"
 
 local function sendPing(isHop)
     isHop = isHop or false
